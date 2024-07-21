@@ -87,6 +87,8 @@
         <h1>Buttons</h1>
         <button onclick="Telegram.WebApp.expand();">Expand Webview</button>
         <button onclick="toggleMainButton();">Toggle Main Button</button>
+        <button onclick="getUserInformation();">Get user information</button>
+        <button onclick="getUserInformationAsString();">Get user information as String</button>
     </main>
     <div id="viewport"></div>
     <div id="viewport-params-size"></div>
@@ -133,6 +135,18 @@
             } else {
                 Telegram.WebApp.MainButton.show();
             }
+        };
+
+        // Function to get user information
+        async function getUserInformation() {
+            const info = await Telegram.WebApp.initDataUnsafe();
+            console.log(info);
+        };
+
+        // Function to get user information as String
+        async function getUserInformationAsString() {
+            const info = await Telegram.WebApp.initData();
+            console.log(info);
         };
 
         function setViewportData() {
