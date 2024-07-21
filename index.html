@@ -139,14 +139,12 @@
 
         // Function to get user information
         async function getUserInformation() {
-            const info = await Telegram.WebApp.initDataUnsafe();
-            console.log(info);
+            console.log(Telegram.WebApp.initDataUnsafe);
         };
 
         // Function to get user information as String
         async function getUserInformationAsString() {
-            const info = await Telegram.WebApp.initData();
-            console.log(info);
+            console.log(Telegram.WebApp.initData);
         };
 
         function setViewportData() {
