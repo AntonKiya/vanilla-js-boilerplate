@@ -220,6 +220,7 @@
                     body: JSON.stringify(body)
                 });
                 const data = await response.json();
+                console.log('Before ответ на предоплату', { precheckoutQueryId })
                 console.log('Ответ на предоплату:', data);
             } catch (error) {
                 console.error('Ошибка при ответе на предоплату:', error);
