@@ -170,7 +170,7 @@
         function pay() {
             Telegram.WebApp.openInvoice('https://t.me/$ooo4QOo98UgaCQAAJspuMv9GAL4');
         }
-        Telegram.WebApp.onEvent('invoiceClosed', function(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10) {
+        Telegram.WebApp.onEvent('invoiceClosed', function(p1, p2, p3, p4, p5) {
             console.log('p1', p1);
             console.log('p2', p2);
             console.log('p3', p3);
@@ -204,8 +204,44 @@
             }
         }
 
+        async function answerPrecheckoutQuery(precheckoutQueryId, ok = true, errorMessage = '') {
+            const url = `${TELEGRAM_API_URL}/answerPreCheckoutQuery`;
+            const body = {
+                pre_checkout_query_id: precheckoutQueryId,
+                ok,
+                error_message: errorMessage
+            };
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(body)
+                });
+                const data = await response.json();
+                console.log('Ответ на предоплату:', data);
+            } catch (error) {
+                console.error('Ошибка при ответе на предоплату:', error);
+            }
+        }
+
+        function handleSuccessfulPayment(successfulPayment) {
+            console.log('Успешный платеж:', successfulPayment);
+        }
+
         function handleUpdate(update) {
             console.log('Получен апдейт:', update);
+
+            if (update.pre_checkout_query) {
+                const precheckoutQuery = update.pre_checkout_query;
+                answerPrecheckoutQuery(precheckoutQuery.id);
+            }
+
+            if (update.message && update.message.successful_payment) {
+                const successfulPayment = update.message.successful_payment;
+                handleSuccessfulPayment(successfulPayment);
+            }
         }
 
         // Launch long polling
