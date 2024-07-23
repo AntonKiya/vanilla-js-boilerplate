@@ -219,11 +219,11 @@
         headers: {
           'Content-Type': 'application/json'
         },
-        body: {
+        body: JSON.stringify({
           error_message: "Sorry, somebody just bought the last of our amazing black T-shirts while you were busy filling out your payment details. Please choose a different color or garment!",
           pre_checkout_query_id: precheckoutQueryId,
-          ok,
-        },
+          ok: true,
+        }),
       });
       const data = await response.json();
       console.log('Before ответ на предоплату', {precheckoutQueryId})
