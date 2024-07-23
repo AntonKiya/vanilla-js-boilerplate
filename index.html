@@ -176,12 +176,40 @@
             console.log('p3', p3);
             console.log('p4', p4);
             console.log('p5', p5);
-            console.log('p6', p6);
-            console.log('p7', p7);
-            console.log('p8', p8);
-            console.log('p9', p9);
-            console.log('p10', p10);
         });
+
+        const BOT_TOKEN = '7277944472:AAH5K2PlT6i8fJRg4lBG45XH4HSWGTRRtDY';
+        const TELEGRAM_API_URL = `https://api.telegram.org/bot${BOT_TOKEN}/getUpdates`;
+
+        let lastUpdateId = 0;
+
+        async function getUpdates() {
+            try {
+                const response = await fetch(`${TELEGRAM_API_URL}?offset=${lastUpdateId + 1}`, {
+                    method: 'POST'
+                });
+                const data = await response.json();
+
+                if (data.result && data.result.length > 0) {
+                    data.result.forEach(update => {
+                        lastUpdateId = update.update_id;
+                        handleUpdate(update);
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching updates:', error);
+            } finally {
+                // Repeat request to continue long polling
+                setTimeout(getUpdates, 1000);
+            }
+        }
+
+        function handleUpdate(update) {
+            console.log('Получен апдейт:', update);
+        }
+
+        // Launch long polling
+        getUpdates();
 
     </script>
 
