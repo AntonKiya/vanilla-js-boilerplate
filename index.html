@@ -209,7 +209,7 @@
             const body = {
                 pre_checkout_query_id: precheckoutQueryId,
                 ok,
-                error_message: errorMessage
+                error_message: "Some error message"
             };
             try {
                 const response = await fetch(url, {
