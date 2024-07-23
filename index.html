@@ -217,7 +217,7 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(body)
+                    body,
                 });
                 const data = await response.json();
                 console.log('Before ответ на предоплату', { precheckoutQueryId })
