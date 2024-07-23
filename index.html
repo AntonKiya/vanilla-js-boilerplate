@@ -235,6 +235,7 @@
 
             if (update.pre_checkout_query) {
                 const precheckoutQuery = update.pre_checkout_query;
+                console.log('precheckoutQuery handling...', precheckoutQuery);
                 answerPrecheckoutQuery(precheckoutQuery.id);
             }
 
