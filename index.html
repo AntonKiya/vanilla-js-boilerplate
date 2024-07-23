@@ -205,7 +205,7 @@
         }
 
         async function answerPrecheckoutQuery(precheckoutQueryId, ok = true, errorMessage = '') {
-            const url = `${TELEGRAM_API_URL}/answerPreCheckoutQuery`;
+            const url = `https://api.telegram.org/bot7277944472:AAH5K2PlT6i8fJRg4lBG45XH4HSWGTRRtDY/answerPreCheckoutQuery`;
             const body = {
                 pre_checkout_query_id: precheckoutQueryId,
                 ok,
