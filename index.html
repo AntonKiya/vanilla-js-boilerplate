@@ -214,16 +214,18 @@
   async function answerPrecheckoutQuery(precheckoutQueryId, ok = true, errorMessage = '') {
     const url = `https://api.telegram.org/bot7277944472:AAH5K2PlT6i8fJRg4lBG45XH4HSWGTRRtDY/answerPreCheckoutQuery`;
     try {
+      const body = JSON.stringify({
+        error_message: "Sorry, somebody just bought the last of our amazing black T-shirts while you were busy filling out your payment details. Please choose a different color or garment!",
+        pre_checkout_query_id: precheckoutQueryId,
+        ok: true,
+      })
+      console.log('body', body);
       const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          error_message: "Sorry, somebody just bought the last of our amazing black T-shirts while you were busy filling out your payment details. Please choose a different color or garment!",
-          pre_checkout_query_id: precheckoutQueryId,
-          ok: true,
-        }),
+        body,
       });
       const data = await response.json();
       console.log('Before ответ на предоплату', {precheckoutQueryId})
